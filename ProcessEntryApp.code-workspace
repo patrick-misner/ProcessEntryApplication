@@ -8,10 +8,10 @@
       "path": "ProcessEntryApp",
       "name": "server"
     },
-    {
-      "path": "./",
-      "name": "ProjectRoot"
-    },
+    // {
+    //   "path": "./",
+    //   "name": "ProjectRoot"
+    // },
     {
       "path": ".github/workflows",
       "name": "workflows"
