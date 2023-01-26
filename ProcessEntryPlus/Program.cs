@@ -1,6 +1,3 @@
-using Dapper;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using ProcessEntryPlus.Repositories;
 using ProcessEntryPlus.Services;
@@ -31,7 +28,7 @@ builder.Services.AddTransient<ContactsRepository>();
 builder.Services.AddTransient<ContactsService>();
 
 builder.Services.AddTransient<CompaniesRepository>();
-builder.Services.AddTransient<CompaniesService>(); 
+builder.Services.AddTransient<CompaniesService>();
 
 builder.Services.AddTransient<ServersRepository>();
 builder.Services.AddTransient<ServersService>();
@@ -72,15 +69,19 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+  app.UseExceptionHandler("/Home/Error");
+  // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+  app.UseHsts();
+}
+
+if (app.Environment.IsDevelopment())
+{
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
 
 
 
-app.UseSwagger();
-app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
