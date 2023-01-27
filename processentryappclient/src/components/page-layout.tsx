@@ -8,6 +8,7 @@ export const PageLayout = ({ children, ...props }: Props) => {
   return (
     <div className="page-layout">
       <NavBar />
+      <p>i don't know </p>
       <div className="page-layout__content">{children}</div>
     </div>
   );
