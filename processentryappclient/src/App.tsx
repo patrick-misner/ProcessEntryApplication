@@ -1,12 +1,21 @@
+// import { useAuth0 } from "@auth0/auth0-react"
 import React from 'react';
-import logo from './logo.svg';
+import { Route, Routes } from "react-router-dom";
 import './App.css';
+import DashboardPage from "./pages/dashboard-page";
+// import { fileURLToPath } from "url";
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline text-red-600">
-    Simple React Typescript Tailwind Sample
-  </h1>
+
+    
+
+
+
+    <Routes>
+      <Route path="/" element={<DashboardPage />} />
+
+    </Routes>
   );
 }
 
