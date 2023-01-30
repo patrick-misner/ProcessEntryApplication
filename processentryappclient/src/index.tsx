@@ -1,4 +1,5 @@
 import React from 'react';
+import { Auth0ProviderWithNavigate } from './auth0-provider-with-navigate';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { BrowserRouter } from "react-router-dom";
@@ -11,7 +12,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <BrowserRouter>
+  <Auth0ProviderWithNavigate>
     <App />
+  </Auth0ProviderWithNavigate>
+    
   </BrowserRouter>
 );
 

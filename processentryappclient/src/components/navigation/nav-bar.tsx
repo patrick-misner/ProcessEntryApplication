@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import React, { useState } from 'react';
 import { FileAddFilled, DashboardFilled, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
@@ -69,17 +70,20 @@ const items: MenuProps['items'] = [
 
 
 
-const NavBar: React.FC = () => {
+
+const NavBarOld: React.FC = () => {
+  const { user } = useAuth0();
   const [current, setCurrent] = useState('mail');
   const navigate = useNavigate();
+  
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
-    setCurrent(e.key);
     navigate(e.key)
+    setCurrent(e.key);
   };
 
   return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
 };
 
-export default NavBar;
+export default NavBarOld;
