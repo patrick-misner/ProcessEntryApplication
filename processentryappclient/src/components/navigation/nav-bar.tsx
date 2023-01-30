@@ -71,7 +71,7 @@ const items: MenuProps['items'] = [
 
 
 
-const NavBarOld: React.FC = () => {
+const NavBar: React.FC = () => {
   const { user } = useAuth0();
   const [current, setCurrent] = useState('mail');
   const navigate = useNavigate();
@@ -86,4 +86,4 @@ const NavBarOld: React.FC = () => {
   return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
 };
 
-export default NavBarOld;
+export default NavBar;
