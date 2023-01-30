@@ -15,7 +15,6 @@ root.render(
   <Auth0ProviderWithNavigate>
     <App />
   </Auth0ProviderWithNavigate>
-    
   </BrowserRouter>
 );
 
