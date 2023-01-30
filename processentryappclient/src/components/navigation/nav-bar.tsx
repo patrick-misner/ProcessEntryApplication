@@ -1,41 +1,85 @@
-import React from "react";
+import React, { useState } from 'react';
+import { FileAddFilled, DashboardFilled, SettingOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { Menu } from 'antd';
 
-function NavBar() {
-return (
-  <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-slate-500 mb-3">
-  <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-    <div className="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:block lg:justify-start">
-      <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white" href="#pablo">
-        slate Color
+const items: MenuProps['items'] = [
+  {
+    label: 'Dashboard',
+    key: '/',
+    icon: <DashboardFilled />,
+  },
+  {
+    label: 'New Process Entry',
+    key: '/processentry/new',
+    icon: <FileAddFilled />,
+    disabled: false,
+  },
+  {
+    label: 'Search',
+    key: '/processentry',
+    icon: <FileAddFilled />,
+    disabled: false,
+  },
+  {
+    label: 'Navigation Three - Submenu',
+    key: 'SubMenu',
+    icon: <SettingOutlined />,
+    children: [
+      {
+        type: 'group',
+        label: 'Item 1',
+        children: [
+          {
+            label: 'Option 1',
+            key: 'setting:1',
+          },
+          {
+            label: 'Option 2',
+            key: 'setting:2',
+          },
+        ],
+      },
+      {
+        type: 'group',
+        label: 'Item 2',
+        children: [
+          {
+            label: 'Option 3',
+            key: 'setting:3',
+          },
+          {
+            label: 'Option 4',
+            key: 'setting:4',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: (
+      <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
+        Navigation Four - Link
       </a>
-      <button className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none" type="button">
-        <span className="block relative w-6 h-px rounded-sm bg-white"></span>
-        <span className="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
-        <span className="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
-      </button>
-    </div>
-    <div className="lg:flex flex-grow items-center" id="example-navbar-warning">
-      <ul className="flex flex-col lg:flex-row list-none ml-auto">
-          <li className="nav-item">
-            <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="#pablo">
-              Discover
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="#pablo">
-              Profile
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="#pablo">
-              Setting
-            </a>
-          </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-);
+    ),
+    key: 'alipay',
+  },
+];
+
+
+
+const NavBar: React.FC = () => {
+  const [current, setCurrent] = useState('mail');
+  const navigate = useNavigate();
+
+  const onClick: MenuProps['onClick'] = (e) => {
+    console.log('click ', e);
+    setCurrent(e.key);
+    navigate(e.key)
+  };
+
+  return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
 };
 
 export default NavBar;
