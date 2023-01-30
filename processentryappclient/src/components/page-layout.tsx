@@ -1,14 +1,18 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import NavBar from "./navigation/nav-bar";
 
+
 interface Props {
-  children?: ReactNode
+  children: JSX.Element;
 }
-export const PageLayout = ({ children, ...props }: Props) => {
+
+export const PageLayout: React.FC<Props> = ({ children }) => {
   return (
     <div className="page-layout">
       <NavBar />
+ 
       <div className="page-layout__content">{children}</div>
+
     </div>
   );
 };
