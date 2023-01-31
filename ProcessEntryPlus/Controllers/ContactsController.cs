@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProcessEntryPlus.Models;
 using ProcessEntryPlus.Services;
 
 namespace ProcessEntryPlus.Controllers
 {
-    [Route("api/[controller]")]
+  [Route("api/[controller]")]
     [ApiController]
     public class ContactsController : ControllerBase
     {
@@ -17,6 +17,7 @@ namespace ProcessEntryPlus.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult<List<Contact>> Get()
         {
             try

@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/patrick/source/code/projects/ProcessEntryApp/ProcessEntryPlus/ProcessEntryPlus.csproj": {}
+    "C:\\Users\\Patrick\\source\\repos\\ProcessEntryApplication\\ProcessEntryPlus\\ProcessEntryPlus.csproj": {}
   },
   "projects": {
-    "/Users/patrick/source/code/projects/ProcessEntryApp/ProcessEntryPlus/ProcessEntryPlus.csproj": {
+    "C:\\Users\\Patrick\\source\\repos\\ProcessEntryApplication\\ProcessEntryPlus\\ProcessEntryPlus.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/patrick/source/code/projects/ProcessEntryApp/ProcessEntryPlus/ProcessEntryPlus.csproj",
+        "projectUniqueName": "C:\\Users\\Patrick\\source\\repos\\ProcessEntryApplication\\ProcessEntryPlus\\ProcessEntryPlus.csproj",
         "projectName": "ProcessEntryPlus",
-        "projectPath": "/Users/patrick/source/code/projects/ProcessEntryApp/ProcessEntryPlus/ProcessEntryPlus.csproj",
-        "packagesPath": "/Users/patrick/.nuget/packages/",
-        "outputPath": "/Users/patrick/source/code/projects/ProcessEntryApp/ProcessEntryPlus/obj/",
+        "projectPath": "C:\\Users\\Patrick\\source\\repos\\ProcessEntryApplication\\ProcessEntryPlus\\ProcessEntryPlus.csproj",
+        "packagesPath": "C:\\Users\\Patrick\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Patrick\\source\\repos\\ProcessEntryApplication\\ProcessEntryPlus\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/patrick/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Patrick\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,9 +40,17 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Auth0.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
             "Dapper": {
               "target": "Package",
               "version": "[2.0.123, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.13, )"
             },
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
@@ -82,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.102/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
