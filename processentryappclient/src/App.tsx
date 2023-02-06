@@ -22,11 +22,6 @@ function App() {
   }
 
   return (
-
-    
-
-
-
     <Routes>
             <Route
         path="/"
@@ -35,7 +30,7 @@ function App() {
       <Route path="/processentry/new" element={<AuthenticationGuard component={ProcessentryPage} />} 
       />
       <Route path="/processentry" element={<ProcessentryPage />} />
-      <Route path="/callback" element={<CallbackPage />} />
+        <Route path="/callback" element={<CallbackPage />} />
       <Route path="*" element={<ErrorPage />} />
 
     </Routes>

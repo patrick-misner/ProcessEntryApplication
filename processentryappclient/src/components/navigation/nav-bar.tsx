@@ -5,6 +5,9 @@ import type { MenuProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { Menu } from 'antd';
 
+
+
+
 const items: MenuProps['items'] = [
   {
     label: 'Dashboard',
@@ -72,18 +75,20 @@ const items: MenuProps['items'] = [
 
 
 const NavBar: React.FC = () => {
-  const { user } = useAuth0();
+  
   const [current, setCurrent] = useState('mail');
   const navigate = useNavigate();
   
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
-    navigate(e.key)
     setCurrent(e.key);
+    navigate(e.key)
   };
 
-  return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
+  return (
+    <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+    );
 };
 
 export default NavBar;
