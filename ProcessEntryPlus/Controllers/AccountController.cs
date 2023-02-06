@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using ProcessEntryPlus.Services;
-using ProcessEntryPlus.Models;
 
 namespace ProcessEntryPlus.Controllers
 {
@@ -16,20 +14,20 @@ namespace ProcessEntryPlus.Controllers
       _accountService = accountService;
     }
 
-    [HttpGet]
-    [Authorize]
-    public async Task<ActionResult<Account>> Get()
-    {
-      try
-      {
-        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        return Ok(_accountService.GetOrCreateProfile(userInfo));
-      }
-      catch (Exception)
-      {
-        return Task.FromResult(BadRequest(e.Message));
-      }
-    }
+    // [HttpGet]
+    // [Authorize]
+    // public async Task<ActionResult<Account>> Get()
+    // {
+    //   try
+    //   {
+    //     Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+    //     return Ok(_accountService.GetOrCreateProfile(userInfo));
+    //   }
+    //   catch (Exception)
+    //   {
+    //     return Task.FromResult(BadRequest(e.Message));
+    //   }
+    // }
 
   }
 

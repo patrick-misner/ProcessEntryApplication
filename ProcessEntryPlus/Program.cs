@@ -17,6 +17,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(builder.Configuration.GetConnectionString("Default")));
 
+builder.Services.AddTransient<AccountsRepository>();
+builder.Services.AddTransient<AccountService>();
+
 builder.Services.AddTransient<CourtsRepository>();
 builder.Services.AddTransient<CourtsService>();
 
@@ -67,11 +70,13 @@ builder.Services.AddTransient<ServiceAttemptsService>();
 
 builder.Services.AddCors(options =>
       {
-        options.AddDefaultPolicy(
-           builder =>
+        options.AddPolicy("CorsDevPolicy", builder =>
            {
-             builder.WithOrigins("http://localhost:3000")
-                .WithHeaders("Authorization");
+             builder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .WithOrigins("http://localhost:3000");
            });
       });
 
@@ -124,6 +129,7 @@ if (app.Environment.IsDevelopment())
 {
   app.UseSwagger();
   app.UseSwaggerUI();
+  app.UseCors("CorsDevPolicy");
 }
 
 
@@ -133,6 +139,7 @@ app.UseStaticFiles();
 
 
 app.UseRouting();
+
 
 app.UseAuthentication();
 app.UseAuthorization();
