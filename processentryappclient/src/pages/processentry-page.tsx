@@ -1,6 +1,5 @@
 import React from 'react'
 import { PageLayout } from '../components/page-layout'
-import axios from "axios"
 import { api } from '../services/AxiosService'
 
 const ProcessentryPage = () => {
