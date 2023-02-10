@@ -2,10 +2,6 @@ import { api } from '../services/AxiosService';
 import IProcessData from "../models/process.type"
 
 class ProcessDataService {
-  getAll() {
-    return api.get<Array<IProcessData>>("/processentries");
-  }
-
   get(id: string) {
     return api.get<IProcessData>(`/processentries/${id}`);
   }
