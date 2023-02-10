@@ -2,6 +2,10 @@
 
 ![alt text](img/howisthisallthereis.gif "How is this all there is?")
 
+
+----------------------
+
+
 ![alt text](img/reactandapiauth.gif "Login")
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
