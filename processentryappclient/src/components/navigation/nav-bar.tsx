@@ -21,11 +21,12 @@ const items: MenuProps['items'] = [
     disabled: false,
   },
   {
-    label: 'Search',
-    key: '/processentry',
+    label: 'Process View',
+    key: '/processview',
     icon: <FileAddFilled />,
     disabled: false,
   },
+  
   {
     label: 'Navigation Three - Submenu',
     key: 'SubMenu',
@@ -87,7 +88,9 @@ const NavBar: React.FC = () => {
   };
 
   return (
-    <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+    <div className="dark:bg-slate-900">
+      <Menu className="dark:bg-slate-900 dark:text-white" onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+    </div>
     );
 };
 

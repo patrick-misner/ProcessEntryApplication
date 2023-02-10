@@ -6,6 +6,7 @@ import { AuthenticationGuard } from "./components/authentication-guard";
 import './App.css';
 import DashboardPage from "./pages/dashboard-page";
 import ProcessentryPage from './pages/processentry-page';
+import ProcessviewPage from './pages/processview-page';
 import ErrorPage from './pages/error';
 import { CallbackPage } from './pages/callback-page';
 // import { fileURLToPath } from "url";
@@ -29,7 +30,10 @@ function App() {
       />
       <Route path="/processentry/new" element={<AuthenticationGuard component={ProcessentryPage} />} 
       />
-      <Route path="/processentry" element={<ProcessentryPage />} />
+      <Route path="/processentry" element={<AuthenticationGuard component={ProcessentryPage} />}
+      />
+      <Route path="/processview" element={<AuthenticationGuard component={ProcessviewPage} />}
+      />
         <Route path="/callback" element={<CallbackPage />} />
       <Route path="*" element={<ErrorPage />} />
 
