@@ -1,16 +1,12 @@
 import React from 'react';
 import { PageLayout } from '../components/page-layout';
+import { useState } from 'react';
 import { api } from '../services/AxiosService';
 
-const ProcessviewPage = () => {
-  const fetchData = () => {
-    return api.get("/api/processentries/6007")
-       .then((response) => console.log(response.data));
-    };
-    fetchData();
+const ProcessviewPage: React.FC = () => {
+
   
     return (
-
     <PageLayout>
       <div className="container mx-auto mt-10 dark:bg-slate-500">
         <div className="grid grid-cols-12 gap-1">
@@ -22,6 +18,22 @@ const ProcessviewPage = () => {
 
         </div>
       
+      </div>
+
+      <div>
+  <div>
+
+        </div>
+      </div>
+      <div>
+  <div>
+
+        </div>
+      </div>
+      <div>
+  <div>
+
+        </div>
       </div>
     </PageLayout>
 
