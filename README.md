@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# How is this all there is diary entry #1
 
 ![alt text](img/howisthisallthereis.gif "How is this all there is?")
 
