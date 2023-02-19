@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { PageLayout } from '../components/page-layout'
 import { Input, InputNumber, Button } from 'antd';
 
@@ -6,6 +6,8 @@ import { Input, InputNumber, Button } from 'antd';
 
 
 const ProcessentryPage = () => {
+
+
 
   return (
     <PageLayout>
@@ -19,9 +21,9 @@ const ProcessentryPage = () => {
 
             <div className="col-span-12 md:col-span-6 p-3">
               Client Reference:
-              <Input className="mb-2 dark:bg-slate-500 dark:text-white" placeholder="Client Reference" />
+              <Input id="ClientRef" className="mb-2 dark:bg-slate-500 dark:text-white" placeholder="Client Reference" />
               <p>Court Id:</p>
-              <InputNumber className="mb-2 dark:bg-slate-500 dark:text-white" min={1} max={100000} defaultValue={1} />
+              <InputNumber className="mb-2 dark:bg-slate-500 dark:text-white" />
 
             </div>
             <div className="col-span-12 md:col-span-6 p-3">
@@ -37,9 +39,6 @@ const ProcessentryPage = () => {
 
           </div>
         </form>
-        <div>
-
-        </div>
       </div>
     </PageLayout>
 

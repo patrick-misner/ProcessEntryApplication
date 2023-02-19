@@ -1,5 +1,5 @@
 import { api } from '../services/AxiosService';
-import IProcessData from "../models/process.type"
+import { IProcessData } from "../models/process.type"
 
 class ProcessDataService {
   get(id: string) {
