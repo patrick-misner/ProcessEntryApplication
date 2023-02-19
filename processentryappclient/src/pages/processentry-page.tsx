@@ -13,7 +13,6 @@ const ProcessentryPage = () => {
     <PageLayout>
       
       <div className="container mx-auto mt-10 dark:bg-slate-900 dark:text-white">
-          <p>FUCK YOU!</p>
         <form>
           <div className="grid grid-cols-12 gap-1">
 
