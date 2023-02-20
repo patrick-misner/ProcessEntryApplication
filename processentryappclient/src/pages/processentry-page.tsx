@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Input, InputNumber, Button } from 'antd';
 import PageLayout from '../components/page-layout';
 
-const ProcessentryPage = () => (
+const ProcessentryPage = () =>
+(
   <PageLayout>
     <div className="container mx-auto mt-10 dark:bg-slate-900 dark:text-white">
       <form>
