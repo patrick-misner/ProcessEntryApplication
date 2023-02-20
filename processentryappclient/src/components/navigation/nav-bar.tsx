@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { FileAddFilled, DashboardFilled, SettingOutlined } from '@ant-design/icons';
+import {
+  FileAddFilled,
+  DashboardFilled,
+  SettingOutlined,
+} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { Menu } from 'antd';
-
-
-
 
 const items: MenuProps['items'] = [
   {
@@ -25,7 +26,7 @@ const items: MenuProps['items'] = [
     icon: <FileAddFilled />,
     disabled: false,
   },
-  
+
   {
     label: 'Navigation Three - Submenu',
     key: 'SubMenu',
@@ -71,26 +72,27 @@ const items: MenuProps['items'] = [
   },
 ];
 
-
-
-
 const NavBar: React.FC = () => {
-  
   const [current, setCurrent] = useState('mail');
   const navigate = useNavigate();
-  
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
     setCurrent(e.key);
-    navigate(e.key)
+    navigate(e.key);
   };
 
   return (
     <div className="dark:bg-slate-900">
-      <Menu className="dark:bg-slate-900 dark:text-white" onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+      <Menu
+        className="dark:bg-slate-900 dark:text-white"
+        onClick={onClick}
+        selectedKeys={[current]}
+        mode="horizontal"
+        items={items}
+      />
     </div>
-    );
+  );
 };
 
 export default NavBar;

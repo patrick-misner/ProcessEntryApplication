@@ -1,6 +1,6 @@
-import { Auth0Provider, AppState } from "@auth0/auth0-react";
-import React, { PropsWithChildren } from "react";
-import { useNavigate } from "react-router-dom";
+import { Auth0Provider, AppState } from '@auth0/auth0-react';
+import React, { PropsWithChildren } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Auth0ProviderWithNavigateProps {
   children: React.ReactNode;
@@ -29,8 +29,8 @@ export const Auth0ProviderWithNavigate = ({
       domain={domain}
       clientId={clientId}
       authorizationParams={{
-        audience: audience,
-        redirect_uri: redirectUri
+        audience,
+        redirect_uri: redirectUri,
       }}
       onRedirectCallback={onRedirectCallback}
     >

@@ -1,10 +1,10 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from '@auth0/auth0-react';
 import React from 'react';
-import { Route, Routes } from "react-router-dom";
-import { PageLoader } from "./components/page-loader";
-import { AuthenticationGuard } from "./components/authentication-guard";
+import { Route, Routes } from 'react-router-dom';
+import { PageLoader } from './components/page-loader';
+import { AuthenticationGuard } from './components/authentication-guard';
 import './App.css';
-import DashboardPage from "./pages/dashboard-page";
+import DashboardPage from './pages/dashboard-page';
 import ProcessentryPage from './pages/processentry-page';
 import ProcessviewPage from './pages/processview-page';
 import ErrorPage from './pages/error';
@@ -24,19 +24,24 @@ function App() {
 
   return (
     <Routes>
-            <Route
+      <Route
         path="/"
         element={<AuthenticationGuard component={DashboardPage} />}
       />
-      <Route path="/processentry/new" element={<AuthenticationGuard component={ProcessentryPage} />} 
+      <Route
+        path="/processentry/new"
+        element={<AuthenticationGuard component={ProcessentryPage} />}
       />
-      <Route path="/processentry" element={<AuthenticationGuard component={ProcessentryPage} />}
+      <Route
+        path="/processentry"
+        element={<AuthenticationGuard component={ProcessentryPage} />}
       />
-      <Route path="/processview" element={<AuthenticationGuard component={ProcessviewPage} />}
+      <Route
+        path="/processview"
+        element={<AuthenticationGuard component={ProcessviewPage} />}
       />
-        <Route path="/callback" element={<CallbackPage />} />
+      <Route path="/callback" element={<CallbackPage />} />
       <Route path="*" element={<ErrorPage />} />
-
     </Routes>
   );
 }

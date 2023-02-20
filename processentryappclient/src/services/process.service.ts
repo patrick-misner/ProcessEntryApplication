@@ -1,5 +1,5 @@
-import { api } from '../services/AxiosService';
-import { IProcessData } from "../models/process.type"
+import { api } from './AxiosService';
+import { IProcessData } from '../models/process.type';
 
 class ProcessDataService {
   get(id: string) {
@@ -7,7 +7,7 @@ class ProcessDataService {
   }
 
   create(data: IProcessData) {
-    return api.post<IProcessData>("/processentries", data);
+    return api.post<IProcessData>('/processentries', data);
   }
 
   update(data: IProcessData, id: any) {

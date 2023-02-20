@@ -1,12 +1,10 @@
-import React from 'react'
-import PageLayout from '../components/page-layout'
+import React from 'react';
+import PageLayout from '../components/page-layout';
 
-const ErrorPage = () => {
-  return (
-    <PageLayout>
-      <div>error</div>
-    </PageLayout>
-  )
-}
+const ErrorPage = () => (
+  <PageLayout>
+    <div>error</div>
+  </PageLayout>
+);
 
 export default ErrorPage;
