@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PageLayout } from '../components/page-layout'
+import PageLayout from '../components/page-layout'
 import { Input, InputNumber, Button } from 'antd';
 
 

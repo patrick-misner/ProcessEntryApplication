@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import React, { useState } from 'react';
 import { FileAddFilled, DashboardFilled, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';

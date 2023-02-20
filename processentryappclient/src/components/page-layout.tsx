@@ -6,11 +6,13 @@ interface Props {
   children: JSX.Element;
 }
 
-export const PageLayout: React.FC<Props> = ({ children }) => {
+
+const PageLayout = (props: Props) => {
   return (
     <div className="page-layout dark:bg-slate-900">
       <NavBar />
-      <div className="page-layout__content">{children}</div>
+      <div className="page-layout__content">{props.children}</div>
     </div>
   );
 };
+export default PageLayout;
