@@ -27,7 +27,7 @@ const ProcessentryPage = () => (
                   htmlType="submit"
                   className="dark:bg-black dark:text-white mb-4"
                 >
-                  Submidt
+                  Submidttt
                 </Button>
               </div>
             </div>
