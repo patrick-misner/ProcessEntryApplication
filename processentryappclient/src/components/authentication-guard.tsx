@@ -10,6 +10,7 @@ export const AuthenticationGuard: React.FC<AuthenticationGuardProps> = ({
   component,
 }) => {
   const Component = withAuthenticationRequired(component, {
+    // eslint-disable-next-line react/no-unstable-nested-components
     onRedirecting: () => (
       <div className="page-layout">
         <PageLoader />
