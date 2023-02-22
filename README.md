@@ -1,5 +1,10 @@
 # How is this all there is diary entry #1
 ![alt text](img/currentState.jpg "How is this all there is?")
+
+
+----------------------
+
+
 ![alt text](img/howisthisallthereis.gif "How is this all there is?")
 
 
