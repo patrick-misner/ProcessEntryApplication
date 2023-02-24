@@ -1,16 +1,41 @@
-import React, { useState } from 'react';
-import { Input, Tooltip, Button } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Input, Select, Tooltip, Button } from 'antd';
+import Axios from 'axios';
 import PageLayout from '../components/page-layout';
 import { IProcessData } from '../models/process.type';
+import { ICourtData } from '../models/courts.type';
 
 const ProcessentryPage = () => {
   const [formData, setFormData] = useState<IProcessData | undefined>(undefined);
+  const [courtList, setCourtList] = useState<ICourtData[]>([]);
+
+  useEffect(() => {
+    const fetchCourts = async () => {
+      try {
+        const response = await Axios.get<ICourtData[]>(
+          'https://localhost:7152/api/courts'
+        );
+        setCourtList(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchCourts();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
+  };
+
+  const onChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
+  const onSearch = (value: string) => {
+    console.log('search:', value);
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,6 +65,32 @@ const ProcessentryPage = () => {
                 value={formData?.courtId}
                 className="mb-2 dark:bg-slate-500 dark:text-white"
                 onChange={handleChange}
+              />
+              <Select
+                showSearch
+                placeholder="Select a person"
+                optionFilterProp="children"
+                onChange={onChange}
+                onSearch={onSearch}
+                filterOption={(input, option) =>
+                  (option?.label ?? '')
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
+                options={[
+                  {
+                    value: 'jack',
+                    label: 'Jack',
+                  },
+                  {
+                    value: 'lucy',
+                    label: 'Lucy',
+                  },
+                  {
+                    value: 'tom',
+                    label: 'Tom',
+                  },
+                ]}
               />
             </div>
             <div className="col-span-12 md:col-span-6 p-3">
