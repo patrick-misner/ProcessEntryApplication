@@ -3,7 +3,6 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { PageLoader } from './components/page-loader';
 import { AuthenticationGuard } from './components/authentication-guard';
-import './App.css';
 import DashboardPage from './pages/dashboard-page';
 import ProcessentryPage from './pages/processentry-page';
 import ProcessviewPage from './pages/processview-page';
@@ -30,6 +29,10 @@ function App() {
       />
       <Route
         path="/processentry/new"
+        element={<AuthenticationGuard component={ProcessentryPage} />}
+      />
+      <Route
+        path="/processentry/:id"
         element={<AuthenticationGuard component={ProcessentryPage} />}
       />
       <Route

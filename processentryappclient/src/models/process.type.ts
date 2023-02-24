@@ -1,5 +1,5 @@
 export interface IProcessData {
-  id?: any | null;
+  id?: number;
   clientRef?: string;
   courtId?: number;
 }

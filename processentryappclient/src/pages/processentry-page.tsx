@@ -1,27 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import { Input, InputNumber, Select, Tooltip, Button } from 'antd';
-import Axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Input, notification, Select, Button } from 'antd';
 import PageLayout from '../components/page-layout';
 import { IProcessData } from '../models/process.type';
 import { ICourtData } from '../models/courts.type';
+import { api } from '../services/AxiosService';
 
 const ProcessentryPage = () => {
   const [formData, setFormData] = useState<IProcessData | undefined>(undefined);
   const [courtList, setCourtList] = useState<ICourtData[]>([]);
+  const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchCourts = async () => {
-      try {
-        const response = await Axios.get<ICourtData[]>(
-          'https://localhost:7152/api/courts'
-        );
-        setCourtList(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchCourts();
-  }, []);
+    fetchFormAssociatedData();
+    if (params.id) {
+      fetchProcessData(params.id);
+    }
+  }, [params.id]);
+
+  const fetchFormAssociatedData = async () => {
+    try {
+      const response = await api.get<ICourtData[]>('/api/courts');
+      setCourtList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchProcessData = async (id: string) => {
+    try {
+      const response = await api.get<IProcessData>(`/api/processentries/${id}`);
+      setFormData((current) => ({
+        ...current,
+        ...response.data,
+      }));
+    } catch (e) {
+      notification.error({ message: 'Oh no ' });
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
@@ -30,24 +47,36 @@ const ProcessentryPage = () => {
     }));
   };
 
-  const handleNumberChange = (value: number | null, key: string) => {
+  const handleValueChange = (value: number | string | null, key: string) => {
     setFormData((prevState) => ({
       ...prevState,
       [key]: value,
     }));
   };
 
-  const onChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-
   const onSearch = (value: string) => {
     console.log('search:', value);
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
+    try {
+      const response = await api.post<IProcessData>(
+        '/api/processentries',
+        formData
+      );
+      console.log('post response', response.data);
+      if (response.data.id) {
+        notification.success({
+          message: 'Success!',
+          description: 'process has been inserted into you database',
+        });
+        navigate(`/processentry/${response.data.id?.toString()}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -67,38 +96,34 @@ const ProcessentryPage = () => {
                 onChange={handleChange}
               />
               <p>Court Id:</p>
-              <InputNumber
+              {/* <InputNumber
                 id="courtId"
                 value={formData?.courtId}
                 className="mb-2 dark:bg-slate-500 dark:text-white"
-                onChange={(value) => handleNumberChange(value, 'courtId')}
-              />
-              <Select
-                showSearch
-                placeholder="Select a person"
-                optionFilterProp="children"
-                onChange={onChange}
-                onSearch={onSearch}
-                filterOption={(input, option) =>
-                  (option?.label ?? '')
-                    .toLowerCase()
-                    .includes(input.toLowerCase())
-                }
-                options={[
-                  {
-                    value: 'jack',
-                    label: 'Jack',
-                  },
-                  {
-                    value: 'lucy',
-                    label: 'Lucy',
-                  },
-                  {
-                    value: 'tom',
-                    label: 'Tom',
-                  },
-                ]}
-              />
+                onChange={(value) => handleValueChange(value, 'courtId')}
+              /> */}
+              {Array.isArray(courtList) && (
+                <Select
+                  showSearch
+                  placeholder="Select a person"
+                  optionFilterProp="children"
+                  style={{ width: '100%' }}
+                  onChange={(value: number) =>
+                    handleValueChange(value, 'courtId')
+                  }
+                  onSearch={onSearch}
+                  filterOption={(input, option) =>
+                    (option?.label ?? '')
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={courtList.map((court) => ({
+                    label: court.name,
+                    value: court.id,
+                  }))}
+                  value={formData?.courtId}
+                />
+              )}
             </div>
             <div className="col-span-12 md:col-span-6 p-3">
               Form stuff

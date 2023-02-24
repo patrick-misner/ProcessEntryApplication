@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FileAddFilled,
   DashboardFilled,
@@ -7,6 +7,7 @@ import {
 import type { MenuProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { Menu } from 'antd';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const items: MenuProps['items'] = [
   {
@@ -26,55 +27,27 @@ const items: MenuProps['items'] = [
     icon: <FileAddFilled />,
     disabled: false,
   },
-
-  {
-    label: 'Navigation Three - Submenu',
-    key: 'SubMenu',
-    icon: <SettingOutlined />,
-    children: [
-      {
-        type: 'group',
-        label: 'Item 1',
-        children: [
-          {
-            label: 'Option 1',
-            key: 'setting:1',
-          },
-          {
-            label: 'Option 2',
-            key: 'setting:2',
-          },
-        ],
-      },
-      {
-        type: 'group',
-        label: 'Item 2',
-        children: [
-          {
-            label: 'Option 3',
-            key: 'setting:3',
-          },
-          {
-            label: 'Option 4',
-            key: 'setting:4',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: (
-      <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-        Navigation Four - Link
-      </a>
-    ),
-    key: 'alipay',
-  },
 ];
 
 const NavBar: React.FC = () => {
   const [current, setCurrent] = useState('mail');
+  const [menuItems, setMenuItems] = useState(items);
   const navigate = useNavigate();
+  const auth0 = useAuth0();
+
+  useEffect(() => {
+    if (auth0.user) {
+      setMenuItems((prevState) => [
+        ...prevState,
+        {
+          label: auth0.user?.email,
+          key: '/profile',
+          icon: <FileAddFilled />,
+          disabled: false,
+        },
+      ]);
+    }
+  }, [auth0.user]);
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
@@ -89,7 +62,7 @@ const NavBar: React.FC = () => {
         onClick={onClick}
         selectedKeys={[current]}
         mode="horizontal"
-        items={items}
+        items={menuItems}
       />
     </div>
   );
