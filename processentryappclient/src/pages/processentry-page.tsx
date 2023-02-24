@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Select, Tooltip, Button } from 'antd';
+import { Input, InputNumber, Select, Tooltip, Button } from 'antd';
 import Axios from 'axios';
 import PageLayout from '../components/page-layout';
 import { IProcessData } from '../models/process.type';
@@ -27,6 +27,13 @@ const ProcessentryPage = () => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
+    }));
+  };
+
+  const handleNumberChange = (value: number | null, key: string) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [key]: value,
     }));
   };
 
@@ -60,11 +67,11 @@ const ProcessentryPage = () => {
                 onChange={handleChange}
               />
               <p>Court Id:</p>
-              <Input
+              <InputNumber
                 id="courtId"
                 value={formData?.courtId}
                 className="mb-2 dark:bg-slate-500 dark:text-white"
-                onChange={handleChange}
+                onChange={(value) => handleNumberChange(value, 'courtId')}
               />
               <Select
                 showSearch
