@@ -95,7 +95,7 @@ const ProcessentryPage = () => {
                 value={formData?.clientRef}
                 onChange={handleChange}
               />
-              <p>Court Id:</p>
+              <p>Court Name:</p>
               {/* <InputNumber
                 id="courtId"
                 value={formData?.courtId}
@@ -105,7 +105,7 @@ const ProcessentryPage = () => {
               {Array.isArray(courtList) && (
                 <Select
                   showSearch
-                  placeholder="Select a person"
+                  placeholder="Select a court"
                   optionFilterProp="children"
                   style={{ width: '100%' }}
                   onChange={(value: number) =>
