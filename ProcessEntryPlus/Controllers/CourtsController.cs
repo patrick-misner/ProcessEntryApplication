@@ -38,14 +38,14 @@ namespace ProcessEntryPlus.Controllers
     {
       try
       {
-       Court court = _cServ.Get(id);
-       return Ok(court);
+        Court court = _cServ.Get(id);
+        return Ok(court);
       }
-      catch (Exception e) 
+      catch (Exception e)
       {
         return BadRequest(e.Message);
       }
-     }
+    }
     [HttpPost]
     public ActionResult<Court> Create([FromBody] Court courtData)
     {
