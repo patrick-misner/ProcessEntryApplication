@@ -3,12 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Input, notification, Select, Button } from 'antd';
 import PageLayout from '../components/page-layout';
 import { IProcessData } from '../models/process.type';
-import { ICourtData } from '../models/courts.type';
+import { IFormData } from '../models/formData.type';
 import { api } from '../services/AxiosService';
 
 const ProcessentryPage = () => {
   const [formData, setFormData] = useState<IProcessData | undefined>(undefined);
-  const [courtList, setCourtList] = useState<ICourtData[]>([]);
+  const [formAssociatedData, setFormAssociatedData] = useState<IFormData[]>([]);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -21,8 +21,8 @@ const ProcessentryPage = () => {
 
   const fetchFormAssociatedData = async () => {
     try {
-      const response = await api.get<ICourtData[]>('/api/courts');
-      setCourtList(response.data);
+      const response = await api.get<IFormData[]>('/api/processentryformdata/');
+      setFormAssociatedData(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -52,6 +52,15 @@ const ProcessentryPage = () => {
       ...prevState,
       [key]: value,
     }));
+  };
+
+  const handleBlur = (event: React.FocusEvent<HTMLSelectElement>) => {
+    const { value } = event.target.id;
+    setFormData((prevState) => ({
+      ...prevState,
+      [event.target.id]: value,
+    }));
+    console.log(value, 'handleblur');
   };
 
   const onSearch = (value: string) => {
@@ -95,19 +104,22 @@ const ProcessentryPage = () => {
                 value={formData?.clientRef}
                 onChange={handleChange}
               />
-              <p>Court Name:</p>
               {/* <InputNumber
                 id="courtId"
                 value={formData?.courtId}
                 className="mb-2 dark:bg-slate-500 dark:text-white"
                 onChange={(value) => handleValueChange(value, 'courtId')}
               /> */}
-              {Array.isArray(courtList) && (
+              <p>Court Name:</p>
+              {Array.isArray(formAssociatedData) && (
                 <Select
+                  id="courtId"
+                  tabIndex={0}
                   showSearch
                   placeholder="Select a court"
                   optionFilterProp="children"
                   style={{ width: '100%' }}
+                  onBlur={handleBlur}
                   onChange={(value: number) =>
                     handleValueChange(value, 'courtId')
                   }
@@ -117,11 +129,75 @@ const ProcessentryPage = () => {
                       .toLowerCase()
                       .includes(input.toLowerCase())
                   }
-                  options={courtList.map((court) => ({
-                    label: court.name,
-                    value: court.id,
-                  }))}
+                  options={formAssociatedData
+                    .filter((court) => court.field === 'courts')
+                    .map((court) => ({
+                      label: court.name,
+                      value: court.id,
+                    }))}
                   value={formData?.courtId}
+                />
+              )}
+              <p>Case number:</p>
+              <Input
+                id="caseNum"
+                className="mb-2 dark:bg-slate-500 dark:text-white"
+                placeholder="Case Number"
+                value={formData?.caseNum}
+                onChange={handleChange}
+              />
+              <p>Plaintiff Type:</p>
+              {Array.isArray(formAssociatedData) && (
+                <Select
+                  showSearch
+                  placeholder="Select plaintiff type"
+                  optionFilterProp="children"
+                  style={{ width: '100%' }}
+                  onChange={(value: number) =>
+                    handleValueChange(value, 'plaintiffTypeId')
+                  }
+                  onSearch={onSearch}
+                  filterOption={(input, option) =>
+                    (option?.label ?? '')
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={formAssociatedData
+                    .filter(
+                      (litigantType) => litigantType.field === 'litigantTypes'
+                    )
+                    .map((litigantType) => ({
+                      label: litigantType.name,
+                      value: litigantType.id,
+                    }))}
+                  value={formData?.plaintiffTypeId}
+                />
+              )}
+              <p>Defendant Type:</p>
+              {Array.isArray(formAssociatedData) && (
+                <Select
+                  showSearch
+                  placeholder="Select defendant type"
+                  optionFilterProp="children"
+                  style={{ width: '100%' }}
+                  onChange={(value: number) =>
+                    handleValueChange(value, 'defendantTypeId')
+                  }
+                  onSearch={onSearch}
+                  filterOption={(input, option) =>
+                    (option?.label ?? '')
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={formAssociatedData
+                    .filter(
+                      (litigantType) => litigantType.field === 'litigantTypes'
+                    )
+                    .map((litigantType) => ({
+                      label: litigantType.name,
+                      value: litigantType.id,
+                    }))}
+                  value={formData?.defendantTypeId}
                 />
               )}
             </div>
