@@ -16,6 +16,12 @@ namespace ProcessEntryPlus.Services
       ProcessEntryFormData processEntryFormData = new ProcessEntryFormData();
       processEntryFormData.Courts = _repo.GetCourts();
       processEntryFormData.LitigantTypes = _repo.GetLitigantTypes();
+      processEntryFormData.Documents = _repo.GetDocuments();
+      processEntryFormData.Instructions = _repo.GetInstructions();
+      processEntryFormData.Servers = _repo.GetServers();
+      processEntryFormData.Methods = _repo.GetMethods();
+      processEntryFormData.Capacities = _repo.GetCapacities();
+      processEntryFormData.AffidavitTypes = _repo.GetAffidavitTypes();
       return processEntryFormData;
     }
   }

@@ -8,7 +8,7 @@ import { api } from '../services/AxiosService';
 
 const ProcessentryPage = () => {
   const [formData, setFormData] = useState<IProcessData | undefined>(undefined);
-  const [formAssociatedData, setFormAssociatedData] = useState<IFormData[]>([]);
+  const [formAssociatedData, setFormAssociatedData] = useState<IFormData>();
   const params = useParams();
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const ProcessentryPage = () => {
 
   const fetchFormAssociatedData = async () => {
     try {
-      const response = await api.get<IFormData[]>('/api/processentryformdata/');
+      const response = await api.get<IFormData>('/api/processentryformdata/');
       setFormAssociatedData(response.data);
     } catch (error) {
       console.error(error);
@@ -111,7 +111,7 @@ const ProcessentryPage = () => {
                 onChange={(value) => handleValueChange(value, 'courtId')}
               /> */}
               <p>Court Name:</p>
-              {Array.isArray(formAssociatedData) && (
+              {Array.isArray(formAssociatedData?.courts) && (
                 <Select
                   id="courtId"
                   tabIndex={0}
@@ -129,7 +129,7 @@ const ProcessentryPage = () => {
                       .toLowerCase()
                       .includes(input.toLowerCase())
                   }
-                  options={formAssociatedData.map((court) => ({
+                  options={formAssociatedData?.courts.map((court) => ({
                     label: court.name,
                     value: court.id,
                   }))}
@@ -145,7 +145,7 @@ const ProcessentryPage = () => {
                 onChange={handleChange}
               />
               <p>Plaintiff Type:</p>
-              {Array.isArray(formAssociatedData) && (
+              {Array.isArray(formAssociatedData?.litigantTypes) && (
                 <Select
                   showSearch
                   placeholder="Select plaintiff type"
@@ -160,19 +160,17 @@ const ProcessentryPage = () => {
                       .toLowerCase()
                       .includes(input.toLowerCase())
                   }
-                  options={formAssociatedData
-                    .filter(
-                      (litigantType) => litigantType.field === 'litigantTypes'
-                    )
-                    .map((litigantType) => ({
+                  options={formAssociatedData?.litigantTypes.map(
+                    (litigantType) => ({
                       label: litigantType.name,
                       value: litigantType.id,
-                    }))}
+                    })
+                  )}
                   value={formData?.plaintiffTypeId}
                 />
               )}
               <p>Defendant Type:</p>
-              {Array.isArray(formAssociatedData) && (
+              {Array.isArray(formAssociatedData?.litigantTypes) && (
                 <Select
                   showSearch
                   placeholder="Select defendant type"
@@ -187,15 +185,93 @@ const ProcessentryPage = () => {
                       .toLowerCase()
                       .includes(input.toLowerCase())
                   }
-                  options={formAssociatedData
-                    .filter(
-                      (litigantType) => litigantType.field === 'litigantTypes'
-                    )
-                    .map((litigantType) => ({
+                  options={formAssociatedData?.litigantTypes.map(
+                    (litigantType) => ({
                       label: litigantType.name,
                       value: litigantType.id,
-                    }))}
+                    })
+                  )}
                   value={formData?.defendantTypeId}
+                />
+              )}
+              <p>Document to serve:</p>
+              {Array.isArray(formAssociatedData?.documents) && (
+                <Select
+                  id="documentId"
+                  tabIndex={0}
+                  showSearch
+                  placeholder="Select document"
+                  optionFilterProp="children"
+                  style={{ width: '100%' }}
+                  // onBlur={handleBlur}
+                  onChange={(value: number) =>
+                    handleValueChange(value, 'documentId')
+                  }
+                  onSearch={onSearch}
+                  filterOption={(input, option) =>
+                    (option?.label ?? '')
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={formAssociatedData?.documents.map((document) => ({
+                    label: document.name,
+                    value: document.id,
+                  }))}
+                  value={formData?.documentId}
+                />
+              )}
+              <p>Service Instructions:</p>
+              {Array.isArray(formAssociatedData?.instructions) && (
+                <Select
+                  id="instructionId"
+                  tabIndex={0}
+                  showSearch
+                  placeholder="Select instructions"
+                  optionFilterProp="children"
+                  style={{ width: '100%' }}
+                  // onBlur={handleBlur}
+                  onChange={(value: number) =>
+                    handleValueChange(value, 'instructionId')
+                  }
+                  onSearch={onSearch}
+                  filterOption={(input, option) =>
+                    (option?.label ?? '')
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={formAssociatedData?.instructions.map(
+                    (instruction) => ({
+                      label: instruction.name,
+                      value: instruction.id,
+                    })
+                  )}
+                  value={formData?.instructionId}
+                />
+              )}
+              <p>Server name:</p>
+              {Array.isArray(formAssociatedData?.servers) && (
+                <Select
+                  id="serverId"
+                  tabIndex={0}
+                  showSearch
+                  placeholder="Select process server"
+                  optionFilterProp="children"
+                  style={{ width: '100%' }}
+                  // onBlur={handleBlur}
+                  onChange={(value: number) =>
+                    handleValueChange(value, 'serverId')
+                  }
+                  onSearch={onSearch}
+                  filterOption={(input, option) =>
+                    (option?.label ?? '')
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={formAssociatedData?.servers.map((server) => ({
+                    label: server.name,
+                    value: server.id,
+                  }))}
+                  value={formData?.serverId}
                 />
               )}
             </div>
