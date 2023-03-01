@@ -54,14 +54,14 @@ const ProcessentryPage = () => {
     }));
   };
 
-  const handleBlur = (event: React.FocusEvent<HTMLSelectElement>) => {
-    const { value } = event.target.id;
-    setFormData((prevState) => ({
-      ...prevState,
-      [event.target.id]: value,
-    }));
-    console.log(value, 'handleblur');
-  };
+  // const handleBlur = (event: React.FocusEvent<HTMLSelectElement>) => {
+  //   const { value } = event.target.id;
+  //   setFormData((prevState) => ({
+  //     ...prevState,
+  //     [event.target.id]: value,
+  //   }));
+  //   console.log(value, 'handleblur');
+  // };
 
   const onSearch = (value: string) => {
     console.log('search:', value);
@@ -119,7 +119,7 @@ const ProcessentryPage = () => {
                   placeholder="Select a court"
                   optionFilterProp="children"
                   style={{ width: '100%' }}
-                  onBlur={handleBlur}
+                  // onBlur={handleBlur}
                   onChange={(value: number) =>
                     handleValueChange(value, 'courtId')
                   }
@@ -129,12 +129,10 @@ const ProcessentryPage = () => {
                       .toLowerCase()
                       .includes(input.toLowerCase())
                   }
-                  options={formAssociatedData
-                    .filter((court) => court.field === 'courts')
-                    .map((court) => ({
-                      label: court.name,
-                      value: court.id,
-                    }))}
+                  options={formAssociatedData.map((court) => ({
+                    label: court.name,
+                    value: court.id,
+                  }))}
                   value={formData?.courtId}
                 />
               )}

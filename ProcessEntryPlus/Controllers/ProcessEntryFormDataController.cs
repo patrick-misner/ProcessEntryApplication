@@ -16,11 +16,11 @@ namespace ProcessEntryPlus.Controllers
       _processEntryFormDataServ = processEntryFormDataServ;
     }
     [HttpGet]
-    public ActionResult<List<ProcessEntryFormData>> Get()
+    public ActionResult<ProcessEntryFormData> Get()
     {
       try
       {
-        List<ProcessEntryFormData> processEntryFormData = _processEntryFormDataServ.GetAll();
+        ProcessEntryFormData processEntryFormData = _processEntryFormDataServ.Get();
         return Ok(processEntryFormData);
       }
       catch (Exception e)

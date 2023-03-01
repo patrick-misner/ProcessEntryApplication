@@ -13,27 +13,25 @@ namespace ProcessEntryPlus.Repositories
       _db = db;
     }
 
-    internal List<ProcessEntryFormData> GetCourts()
+    internal List<ProcessEntryFormField> GetCourts()
     {
       string sql = @"
             SELECT
-            'courts' AS Field,
             c.id,
             c.name
             FROM courts c;
             ";
-      return _db.Query<ProcessEntryFormData>(sql).ToList();
+      return _db.Query<ProcessEntryFormField>(sql).ToList();
     }
-    internal List<ProcessEntryFormData> GetLitigantTypes()
+    internal List<ProcessEntryFormField> GetLitigantTypes()
     {
       string sql = @"
             SELECT
-            'litigantTypes' AS Field,
             l.id,
             l.name
             FROM litigantTypes l
             ";
-      return _db.Query<ProcessEntryFormData>(sql).ToList();
+      return _db.Query<ProcessEntryFormField>(sql).ToList();
     }
   }
 }

@@ -11,14 +11,13 @@ namespace ProcessEntryPlus.Services
     {
       _repo = repo;
     }
-    internal List<ProcessEntryFormData> GetAll()
+    internal ProcessEntryFormData Get()
     {
-      List<ProcessEntryFormData> courtFormData = _repo.GetCourts();
-      List<ProcessEntryFormData> litigantTypeFormData = _repo.GetLitigantTypes();
-      List<ProcessEntryFormData> processEntryFormData = courtFormData.Concat(litigantTypeFormData).ToList();
+      ProcessEntryFormData processEntryFormData = new ProcessEntryFormData();
+      processEntryFormData.Courts = _repo.GetCourts();
+      processEntryFormData.LitigantTypes = _repo.GetLitigantTypes();
       return processEntryFormData;
     }
-
   }
 }
 
