@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Input, notification, Select, Button } from 'antd';
+import type { DatePickerProps } from 'antd';
+import { Input, notification, DatePicker, Select, Button } from 'antd';
 import PageLayout from '../components/page-layout';
 import { IProcessData } from '../models/process.type';
 import { IFormData } from '../models/formData.type';
@@ -54,6 +55,10 @@ const ProcessentryPage = () => {
     }));
   };
 
+  const handleDateChange: DatePickerProps['onChange'] = (date, dateString) => {
+    console.log(date, dateString);
+  };
+
   // const handleBlur = (event: React.FocusEvent<HTMLSelectElement>) => {
   //   const { value } = event.target.id;
   //   setFormData((prevState) => ({
@@ -104,12 +109,6 @@ const ProcessentryPage = () => {
                 value={formData?.clientRef}
                 onChange={handleChange}
               />
-              {/* <InputNumber
-                id="courtId"
-                value={formData?.courtId}
-                className="mb-2 dark:bg-slate-500 dark:text-white"
-                onChange={(value) => handleValueChange(value, 'courtId')}
-              /> */}
               <p>Court Name:</p>
               {Array.isArray(formAssociatedData?.courts) && (
                 <Select
@@ -143,6 +142,27 @@ const ProcessentryPage = () => {
                 placeholder="Case Number"
                 value={formData?.caseNum}
                 onChange={handleChange}
+              />
+              <p>Priority:</p>
+              <Select
+                defaultValue="Routine"
+                style={{ width: '50%' }}
+                onChange={(value: string) =>
+                  handleValueChange(value, 'priority')
+                }
+                options={[
+                  { value: 'Routine', label: 'Routine' },
+                  { value: 'ASAP', label: 'ASAP' },
+                  { value: 'Rush', label: 'Rush' },
+                  { value: 'Rush 24 Hours', label: 'Rush 24 Hours' },
+                  { value: 'Rush 48 Hours', label: 'Rush 48 Hours' },
+                ]}
+                value={formData?.priority}
+              />
+              <p>Compliance Date:</p>
+              <DatePicker
+                data-id="expireDateTime"
+                onChange={handleDateChange}
               />
               <p>Plaintiff Type:</p>
               {Array.isArray(formAssociatedData?.litigantTypes) && (
@@ -194,6 +214,8 @@ const ProcessentryPage = () => {
                   value={formData?.defendantTypeId}
                 />
               )}
+              <p>Received Date:</p>
+              <DatePicker id="receivedDateTime" onChange={handleDateChange} />
               <p>Document to serve:</p>
               {Array.isArray(formAssociatedData?.documents) && (
                 <Select
@@ -272,6 +294,91 @@ const ProcessentryPage = () => {
                     value: server.id,
                   }))}
                   value={formData?.serverId}
+                />
+              )}
+              -----------
+              <h2>Return Fields</h2>
+              -----------
+              <p>Served Date:</p>
+              <DatePicker id="servedDateTime" onChange={handleDateChange} />
+              <p>Method of service:</p>
+              {Array.isArray(formAssociatedData?.methods) && (
+                <Select
+                  id="methodId"
+                  tabIndex={0}
+                  showSearch
+                  placeholder="Select method of service"
+                  optionFilterProp="children"
+                  style={{ width: '100%' }}
+                  // onBlur={handleBlur}
+                  onChange={(value: number) =>
+                    handleValueChange(value, 'methodId')
+                  }
+                  onSearch={onSearch}
+                  filterOption={(input, option) =>
+                    (option?.label ?? '')
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={formAssociatedData?.methods.map((method) => ({
+                    label: method.name,
+                    value: method.id,
+                  }))}
+                  value={formData?.methodId}
+                />
+              )}
+              <p>Served Capacity:</p>
+              {Array.isArray(formAssociatedData?.capacities) && (
+                <Select
+                  id="capacityId"
+                  tabIndex={0}
+                  showSearch
+                  placeholder="Select served capacity"
+                  optionFilterProp="children"
+                  style={{ width: '100%' }}
+                  // onBlur={handleBlur}
+                  onChange={(value: number) =>
+                    handleValueChange(value, 'capacityId')
+                  }
+                  onSearch={onSearch}
+                  filterOption={(input, option) =>
+                    (option?.label ?? '')
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={formAssociatedData?.capacities.map((capacity) => ({
+                    label: capacity.name,
+                    value: capacity.id,
+                  }))}
+                  value={formData?.capacityId}
+                />
+              )}
+              <p>Affidavit Type:</p>
+              {Array.isArray(formAssociatedData?.affidavitTypes) && (
+                <Select
+                  id="affidavitTypeId"
+                  tabIndex={0}
+                  showSearch
+                  placeholder="Select Affidavit Type"
+                  optionFilterProp="children"
+                  style={{ width: '100%' }}
+                  // onBlur={handleBlur}
+                  onChange={(value: number) =>
+                    handleValueChange(value, 'affidavitTypeId')
+                  }
+                  onSearch={onSearch}
+                  filterOption={(input, option) =>
+                    (option?.label ?? '')
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={formAssociatedData?.affidavitTypes.map(
+                    (affidavitType) => ({
+                      label: affidavitType.name,
+                      value: affidavitType.id,
+                    })
+                  )}
+                  value={formData?.affidavitTypeId}
                 />
               )}
             </div>

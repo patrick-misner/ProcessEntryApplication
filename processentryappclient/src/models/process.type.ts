@@ -3,6 +3,8 @@ export interface IProcessData {
   clientRef?: string;
   courtId?: number;
   caseNum?: string;
+  priority?: string;
+  expireDateTime?: string;
   plaintiffTypeId?: number;
   defendantTypeId?: number;
   documentId?: number;
