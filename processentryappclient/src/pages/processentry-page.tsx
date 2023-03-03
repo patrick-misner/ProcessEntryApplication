@@ -55,8 +55,15 @@ const ProcessentryPage = () => {
     }));
   };
 
-  const handleDateChange: DatePickerProps['onChange'] = (date, dateString) => {
-    console.log(date, dateString);
+  const handleExpiredDateChange: DatePickerProps['onChange'] = (
+    date,
+    dateString
+  ) => {
+    const key = 'expireDateTime';
+    setFormData((prevState) => ({
+      ...prevState,
+      [key]: dateString,
+    }));
   };
 
   // const handleBlur = (event: React.FocusEvent<HTMLSelectElement>) => {
@@ -160,10 +167,7 @@ const ProcessentryPage = () => {
                 value={formData?.priority}
               />
               <p>Compliance Date:</p>
-              <DatePicker
-                data-id="expireDateTime"
-                onChange={handleDateChange}
-              />
+              <DatePicker onChange={handleExpiredDateChange} />
               <p>Plaintiff Type:</p>
               {Array.isArray(formAssociatedData?.litigantTypes) && (
                 <Select
@@ -215,7 +219,6 @@ const ProcessentryPage = () => {
                 />
               )}
               <p>Received Date:</p>
-              <DatePicker id="receivedDateTime" onChange={handleDateChange} />
               <p>Document to serve:</p>
               {Array.isArray(formAssociatedData?.documents) && (
                 <Select
@@ -300,7 +303,6 @@ const ProcessentryPage = () => {
               <h2>Return Fields</h2>
               -----------
               <p>Served Date:</p>
-              <DatePicker id="servedDateTime" onChange={handleDateChange} />
               <p>Method of service:</p>
               {Array.isArray(formAssociatedData?.methods) && (
                 <Select
