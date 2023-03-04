@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import type { DatePickerProps } from 'antd';
 import { Input, notification, DatePicker, Select, Button } from 'antd';
+import dayjs from 'dayjs';
 import PageLayout from '../components/page-layout';
 import { IProcessData } from '../models/process.type';
 import { IFormData } from '../models/formData.type';
@@ -191,7 +192,11 @@ const ProcessentryPage = () => {
               <p>Compliance Date:</p>
               <DatePicker
                 onChange={handleExpiredDateChange}
-                value={expireDateValue}
+                value={
+                  formData?.expireDateTime
+                    ? dayjs(formData.expireDateTime)
+                    : null
+                }
               />
               <p>Plaintiff Type:</p>
               {Array.isArray(formAssociatedData?.litigantTypes) && (
@@ -244,7 +249,14 @@ const ProcessentryPage = () => {
                 />
               )}
               <p>Received Date:</p>
-              <DatePicker onChange={handleReceivedDateChange} />
+              <DatePicker
+                onChange={handleReceivedDateChange}
+                value={
+                  formData?.expireDateTime
+                    ? dayjs(formData.receivedDateTime)
+                    : null
+                }
+              />
               <p>Document to serve:</p>
               {Array.isArray(formAssociatedData?.documents) && (
                 <Select
@@ -329,7 +341,14 @@ const ProcessentryPage = () => {
               <h2>Return Fields</h2>
               -----------
               <p>Served Date:</p>
-              <DatePicker onChange={handleServedDateChange} />
+              <DatePicker
+                onChange={handleServedDateChange}
+                value={
+                  formData?.expireDateTime
+                    ? dayjs(formData.servedDateTime)
+                    : null
+                }
+              />
               <p>Method of service:</p>
               {Array.isArray(formAssociatedData?.methods) && (
                 <Select
