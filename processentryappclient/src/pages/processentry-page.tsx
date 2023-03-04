@@ -66,6 +66,28 @@ const ProcessentryPage = () => {
     }));
   };
 
+  const handleReceivedDateChange: DatePickerProps['onChange'] = (
+    date,
+    dateString
+  ) => {
+    const key = 'receivedDateTime';
+    setFormData((prevState) => ({
+      ...prevState,
+      [key]: dateString,
+    }));
+  };
+
+  const handleServedDateChange: DatePickerProps['onChange'] = (
+    date,
+    dateString
+  ) => {
+    const key = 'servedDateTime';
+    setFormData((prevState) => ({
+      ...prevState,
+      [key]: dateString,
+    }));
+  };
+
   // const handleBlur = (event: React.FocusEvent<HTMLSelectElement>) => {
   //   const { value } = event.target.id;
   //   setFormData((prevState) => ({
@@ -167,7 +189,10 @@ const ProcessentryPage = () => {
                 value={formData?.priority}
               />
               <p>Compliance Date:</p>
-              <DatePicker onChange={handleExpiredDateChange} />
+              <DatePicker
+                onChange={handleExpiredDateChange}
+                value={expireDateValue}
+              />
               <p>Plaintiff Type:</p>
               {Array.isArray(formAssociatedData?.litigantTypes) && (
                 <Select
@@ -219,6 +244,7 @@ const ProcessentryPage = () => {
                 />
               )}
               <p>Received Date:</p>
+              <DatePicker onChange={handleReceivedDateChange} />
               <p>Document to serve:</p>
               {Array.isArray(formAssociatedData?.documents) && (
                 <Select
@@ -303,6 +329,7 @@ const ProcessentryPage = () => {
               <h2>Return Fields</h2>
               -----------
               <p>Served Date:</p>
+              <DatePicker onChange={handleServedDateChange} />
               <p>Method of service:</p>
               {Array.isArray(formAssociatedData?.methods) && (
                 <Select

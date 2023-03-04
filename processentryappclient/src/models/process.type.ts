@@ -7,9 +7,11 @@ export interface IProcessData {
   expireDateTime?: string;
   plaintiffTypeId?: number;
   defendantTypeId?: number;
+  receivedDateTime?: string;
   documentId?: number;
   instructionId?: number;
   serverId?: number;
+  servedDateTime?: string;
   methodId?: number;
   capacityId?: number;
   affidavitTypeId?: number;
