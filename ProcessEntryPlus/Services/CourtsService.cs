@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using ProcessEntryPlus.Models;
 using ProcessEntryPlus.Repositories;
 
@@ -15,6 +13,10 @@ namespace ProcessEntryPlus.Services
     internal List<Court> GetAll()
     {
       return _repo.GetAll();
+    }
+    internal List<CourtFormData> GetFormData()
+    {
+      return _repo.GetFormData();
     }
     internal Court Get(int id)
     {

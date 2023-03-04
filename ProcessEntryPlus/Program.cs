@@ -68,6 +68,9 @@ builder.Services.AddTransient<ContactCompaniesService>();
 builder.Services.AddTransient<ServiceAttemptsRepository>();
 builder.Services.AddTransient<ServiceAttemptsService>();
 
+builder.Services.AddTransient<ProcessEntryFormDataRepository>();
+builder.Services.AddTransient<ProcessEntryFormDataService>();
+
 builder.Services.AddCors(options =>
       {
         options.AddPolicy("CorsDevPolicy", builder =>

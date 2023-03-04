@@ -24,6 +24,16 @@ namespace ProcessEntryPlus.Repositories
       ";
       return _db.Query<Court>(sql).ToList();
     }
+    internal List<CourtFormData> GetFormData()
+    {
+      string sql = @"
+      SELECT
+      c.id AS courtId,
+      c.name
+      FROM courts c
+      ";
+      return _db.Query<CourtFormData>(sql).ToList();
+    }
 
     internal Court Get(int id)
     {
