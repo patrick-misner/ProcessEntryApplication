@@ -42,6 +42,8 @@ const ProcessentryPage = () => {
     }
   };
 
+  const { TextArea } = Input;
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -223,6 +225,14 @@ const ProcessentryPage = () => {
                   value={formData?.plaintiffTypeId}
                 />
               )}
+              <p>Plaintiff Names:</p>
+              <Input
+                id="plaintiff"
+                className=""
+                placeholder="Plaintiff names"
+                value={formData?.plaintiff}
+                onChange={handleChange}
+              />
               <p>Defendant Type:</p>
               {Array.isArray(formAssociatedData?.litigantTypes) && (
                 <Select
@@ -248,6 +258,14 @@ const ProcessentryPage = () => {
                   value={formData?.defendantTypeId}
                 />
               )}
+              <p>Defendant Names:</p>
+              <Input
+                id="defendant"
+                className=""
+                placeholder="Defendant names"
+                value={formData?.defendant}
+                onChange={handleChange}
+              />
               <p>Received Date:</p>
               <DatePicker
                 onChange={handleReceivedDateChange}
@@ -375,6 +393,14 @@ const ProcessentryPage = () => {
                   value={formData?.methodId}
                 />
               )}
+              <p>Name of Served:</p>
+              <Input
+                id="subServed"
+                className=""
+                placeholder="Name of served"
+                value={formData?.subServed}
+                onChange={handleChange}
+              />
               <p>Served Capacity:</p>
               {Array.isArray(formAssociatedData?.capacities) && (
                 <Select
@@ -401,6 +427,8 @@ const ProcessentryPage = () => {
                   value={formData?.capacityId}
                 />
               )}
+              <p>Comments:</p>
+              <TextArea rows={4} id="comments" />
               <p>Affidavit Type:</p>
               {Array.isArray(formAssociatedData?.affidavitTypes) && (
                 <Select
