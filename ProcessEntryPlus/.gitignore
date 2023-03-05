@@ -67,6 +67,8 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 project.assets.json
+obj/project.assets.json
+
 artifacts/
 
 # ASP.NET Scaffolding
@@ -213,9 +215,11 @@ PublishScripts/
 *.nuget.props
 *.nuget.targets
 *.nuget.cache
-*.nuget.dgspec.json
-*.nuget.g.props
-*.nuget.g.targets
+./obj/*.nuget.dgspec.json
+obj/*.nuget.g.props
+obj/*.nuget.g.targets
+obj/project.nuget.cache
+
 
 
 # Microsoft Azure Build Output
