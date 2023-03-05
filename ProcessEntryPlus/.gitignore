@@ -6,6 +6,8 @@
 # appsettings
 appsettings.development.json
 
+# obj ignore
+
 # User-specific files
 *.rsuser
 *.suo
@@ -215,10 +217,10 @@ PublishScripts/
 *.nuget.props
 *.nuget.targets
 *.nuget.cache
-./obj/*.nuget.dgspec.json
-obj/*.nuget.g.props
-obj/*.nuget.g.targets
-obj/project.nuget.cache
+/obj/*.nuget.dgspec.json
+/obj/*.nuget.g.props
+/obj/*.nuget.g.targets
+/obj/project.nuget.cache
 
 
 
