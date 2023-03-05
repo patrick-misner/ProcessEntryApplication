@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import type { DatePickerProps } from 'antd';
 import { Input, notification, DatePicker, Select, Button } from 'antd';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import PageLayout from '../components/page-layout';
 import { IProcessData } from '../models/process.type';
 import { IFormData } from '../models/formData.type';
@@ -11,6 +11,18 @@ import { api } from '../services/AxiosService';
 const ProcessentryPage = () => {
   const [formData, setFormData] = useState<IProcessData | undefined>(undefined);
   const [formAssociatedData, setFormAssociatedData] = useState<IFormData>();
+  const [expireDateTime, setExpireDateTime] = useState(
+    formData && formData.expireDateTime ? dayjs(formData.expireDateTime) : null
+  );
+  const [receivedDateTime, setReceivedDateTime] = useState(
+    formData && formData.receivedDateTime
+      ? dayjs(formData.receivedDateTime)
+      : null
+  );
+  const [servedDateTime, setServedDateTime] = useState(
+    formData && formData.servedDateTime ? dayjs(formData.servedDateTime) : null
+  );
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -37,6 +49,15 @@ const ProcessentryPage = () => {
         ...current,
         ...response.data,
       }));
+      if (response.data.expireDateTime != null) {
+        setExpireDateTime(dayjs(response.data.expireDateTime));
+      }
+      if (response.data.receivedDateTime != null) {
+        setReceivedDateTime(dayjs(response.data.receivedDateTime));
+      }
+      if (response.data.servedDateTime != null) {
+        setServedDateTime(dayjs(response.data.servedDateTime));
+      }
     } catch (e) {
       notification.error({ message: 'Oh no ' });
     }
@@ -58,14 +79,14 @@ const ProcessentryPage = () => {
     }));
   };
 
-  const handleExpiredDateChange: DatePickerProps['onChange'] = (
+  const handleExpireDateChange: DatePickerProps['onChange'] = (
     date,
     dateString
   ) => {
-    const key = 'expireDateTime';
+    setExpireDateTime(dayjs(dateString));
     setFormData((prevState) => ({
       ...prevState,
-      [key]: dateString,
+      expireDateTime: dateString,
     }));
   };
 
@@ -73,10 +94,10 @@ const ProcessentryPage = () => {
     date,
     dateString
   ) => {
-    const key = 'receivedDateTime';
+    setReceivedDateTime(dayjs(dateString));
     setFormData((prevState) => ({
       ...prevState,
-      [key]: dateString,
+      receivedDateTime: dateString,
     }));
   };
 
@@ -84,10 +105,10 @@ const ProcessentryPage = () => {
     date,
     dateString
   ) => {
-    const key = 'servedDateTime';
+    setServedDateTime(dayjs(dateString));
     setFormData((prevState) => ({
       ...prevState,
-      [key]: dateString,
+      servedDateTime: dateString,
     }));
   };
 
@@ -193,12 +214,8 @@ const ProcessentryPage = () => {
               />
               <p>Compliance Date:</p>
               <DatePicker
-                onChange={handleExpiredDateChange}
-                value={
-                  formData?.expireDateTime
-                    ? dayjs(formData.expireDateTime)
-                    : null
-                }
+                onChange={handleExpireDateChange}
+                value={expireDateTime}
               />
               <p>Plaintiff Type:</p>
               {Array.isArray(formAssociatedData?.litigantTypes) && (
@@ -269,11 +286,7 @@ const ProcessentryPage = () => {
               <p>Received Date:</p>
               <DatePicker
                 onChange={handleReceivedDateChange}
-                value={
-                  formData?.expireDateTime
-                    ? dayjs(formData.receivedDateTime)
-                    : null
-                }
+                value={receivedDateTime}
               />
               <p>Document to serve:</p>
               {Array.isArray(formAssociatedData?.documents) && (
@@ -361,11 +374,7 @@ const ProcessentryPage = () => {
               <p>Served Date:</p>
               <DatePicker
                 onChange={handleServedDateChange}
-                value={
-                  formData?.expireDateTime
-                    ? dayjs(formData.servedDateTime)
-                    : null
-                }
+                value={servedDateTime}
               />
               <p>Method of service:</p>
               {Array.isArray(formAssociatedData?.methods) && (
@@ -466,7 +475,7 @@ const ProcessentryPage = () => {
                     htmlType="submit"
                     className="dark:bg-black dark:text-white mb-4"
                   >
-                    Submidttt
+                    Submit
                   </Button>
                 </div>
               </div>
