@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import type { DatePickerProps } from 'antd';
-import { Input, notification, DatePicker, Select, Button } from 'antd';
+import { Input, notification, DatePicker, Select, Modal, Button } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import PageLayout from '../components/page-layout';
 import { IProcessData } from '../models/process.type';
 import { IFormData } from '../models/formData.type';
+import { IModalProps } from '../models/modalProps.type';
 import { api } from '../services/AxiosService';
+import serviceSubjectModal from '../components/processentry/serviceSubjectModal';
 
 const ProcessentryPage = () => {
   const [formData, setFormData] = useState<IProcessData | undefined>(undefined);
@@ -22,6 +24,7 @@ const ProcessentryPage = () => {
   const [servedDateTime, setServedDateTime] = useState(
     formData && formData.servedDateTime ? dayjs(formData.servedDateTime) : null
   );
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const params = useParams();
   const navigate = useNavigate();
@@ -65,7 +68,17 @@ const ProcessentryPage = () => {
 
   const { TextArea } = Input;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const hideModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
@@ -112,15 +125,6 @@ const ProcessentryPage = () => {
     }));
   };
 
-  // const handleBlur = (event: React.FocusEvent<HTMLSelectElement>) => {
-  //   const { value } = event.target.id;
-  //   setFormData((prevState) => ({
-  //     ...prevState,
-  //     [event.target.id]: value,
-  //   }));
-  //   console.log(value, 'handleblur');
-  // };
-
   const onSearch = (value: string) => {
     console.log('search:', value);
   };
@@ -152,8 +156,13 @@ const ProcessentryPage = () => {
         <form onSubmit={onSubmit}>
           <div className="grid grid-cols-12 gap-1">
             <div className="col-span-12 text-center">Process Entry</div>
-
-            <div className="col-span-12 p-3">
+            <div className="col-span-12 md:col-span-2" />
+            <div className="col-span-12 md:col-span-8 p-3">
+              <serviceSubject
+                ModalisModalVisible={isModalVisible}
+                showModal={showModal}
+                handleCancel={hideModal}
+              />
               Client Reference:
               <Input
                 id="clientRef"
@@ -314,6 +323,14 @@ const ProcessentryPage = () => {
                   value={formData?.documentId}
                 />
               )}
+              <p>Service Subject:</p>
+              <p>{formData?.ssId}</p>
+              <Button
+                className="dark:bg-black dark:text-white mb-4"
+                onClick={showModal}
+              >
+                Service Subject
+              </Button>
               <p>Service Instructions:</p>
               {Array.isArray(formAssociatedData?.instructions) && (
                 <Select
@@ -437,7 +454,12 @@ const ProcessentryPage = () => {
                 />
               )}
               <p>Comments:</p>
-              <TextArea rows={4} id="comments" />
+              <TextArea
+                rows={4}
+                id="comments"
+                onChange={handleChange}
+                value={formData?.comments}
+              />
               <p>Affidavit Type:</p>
               {Array.isArray(formAssociatedData?.affidavitTypes) && (
                 <Select
@@ -466,18 +488,13 @@ const ProcessentryPage = () => {
                   value={formData?.affidavitTypeId}
                 />
               )}
-            </div>
-            <div className="col-span-12 md:col-span-6 p-3">
-              Form stuff
-              <div className="flex flex-col justify-end h-full">
-                <div className="">
-                  <Button
-                    htmlType="submit"
-                    className="dark:bg-black dark:text-white mb-4"
-                  >
-                    Submit
-                  </Button>
-                </div>
+              <div className="p-3 m-3 text-center">
+                <Button
+                  htmlType="submit"
+                  className="dark:bg-black dark:text-white mb-4"
+                >
+                  Submit
+                </Button>
               </div>
             </div>
           </div>

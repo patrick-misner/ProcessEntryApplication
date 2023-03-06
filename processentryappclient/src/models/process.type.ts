@@ -11,6 +11,7 @@ export interface IProcessData {
   defendant?: string;
   receivedDateTime?: string;
   documentId?: number;
+  ssId?: number;
   instructionId?: number;
   serverId?: number;
   servedDateTime?: string;
