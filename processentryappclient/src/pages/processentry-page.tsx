@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import type { DatePickerProps } from 'antd';
-import { Input, notification, DatePicker, Select, Modal, Button } from 'antd';
-import dayjs, { Dayjs } from 'dayjs';
+import { Input, notification, DatePicker, Select, Button } from 'antd';
+import dayjs from 'dayjs';
 import PageLayout from '../components/page-layout';
 import { IProcessData } from '../models/process.type';
 import { IFormData } from '../models/formData.type';
-import { IModalProps } from '../models/modalProps.type';
 import { api } from '../services/AxiosService';
-import serviceSubjectModal from '../components/processentry/serviceSubjectModal';
+import ModalServiceSubject from '../components/modal-serviceSubject';
 
 const ProcessentryPage = () => {
   const [formData, setFormData] = useState<IProcessData | undefined>(undefined);
@@ -24,7 +23,7 @@ const ProcessentryPage = () => {
   const [servedDateTime, setServedDateTime] = useState(
     formData && formData.servedDateTime ? dayjs(formData.servedDateTime) : null
   );
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const params = useParams();
   const navigate = useNavigate();
@@ -68,14 +67,13 @@ const ProcessentryPage = () => {
 
   const { TextArea } = Input;
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  const handleOpenModal = () => {
+    setModalVisible(true);
   };
 
-  const hideModal = () => {
-    setIsModalVisible(false);
+  const handleCloseModal = () => {
+    setModalVisible(false);
   };
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -152,17 +150,18 @@ const ProcessentryPage = () => {
 
   return (
     <PageLayout>
+      <div>
+        <ModalServiceSubject
+          visible={modalVisible}
+          onCancel={handleCloseModal}
+        />
+      </div>
       <div className="container mx-auto mt-10 dark:bg-slate-900 dark:text-white">
         <form onSubmit={onSubmit}>
           <div className="grid grid-cols-12 gap-1">
             <div className="col-span-12 text-center">Process Entry</div>
             <div className="col-span-12 md:col-span-2" />
             <div className="col-span-12 md:col-span-8 p-3">
-              <serviceSubject
-                ModalisModalVisible={isModalVisible}
-                showModal={showModal}
-                handleCancel={hideModal}
-              />
               Client Reference:
               <Input
                 id="clientRef"
@@ -324,13 +323,8 @@ const ProcessentryPage = () => {
                 />
               )}
               <p>Service Subject:</p>
+              <Button onClick={handleOpenModal}>Open Modal</Button>
               <p>{formData?.ssId}</p>
-              <Button
-                className="dark:bg-black dark:text-white mb-4"
-                onClick={showModal}
-              >
-                Service Subject
-              </Button>
               <p>Service Instructions:</p>
               {Array.isArray(formAssociatedData?.instructions) && (
                 <Select
