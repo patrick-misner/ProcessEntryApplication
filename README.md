@@ -1,16 +1,30 @@
-# How is this all there is diary entry #1
-![alt text](img/currentState.jpg "How is this all there is?")
+# Process Entry Application
 
+This application is for my portfolio, needs driven by a real-world business app developed in MS Access for Tenacious Legal.
+
+/ProcessEntryPlus (dotnet api server)
+/processentryappclient (Typescript React)
+
+The purpose was to learn more about database design, Dotnet Web API, authorization and typescript React. I am making sure I can get, post, edit all necessary data before designing. A lot of experience was gained in importing data from access to MySql, and normalizing data and tables. There is a long way to go for MVP for my portfolio but I wanted to document some of my progress.
+
+## UML Diagram
+![alt text](img/uml.png "UML Diagram")
+
+
+## Routes are protected by Auth0 and process entry form
+All Ids and names for the one-to-many tables populated with one API request into multiple fuzzy search ant design Select components. The ProcessEntryFromData model and ProcessEntryFromData controller used to get this data is in /ProcessEntryPlus
+![alt text](img/pdemo1.gif "Page demo")
+
+
+## API post request to Dotnet API
+Post request works, and you can see the data inserted into MySQL.
+![alt text](img/pdemo2.gif "Submit Demo")
+
+## React router and useEffect
+The form is populated if there is a match for the ID in the route
+![alt text](img/pdemo3.gif "Form populate Demo")
 
 ----------------------
-
-
-![alt text](img/howisthisallthereis.gif "How is this all there is?")
-
-
-----------------------
-
-
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
