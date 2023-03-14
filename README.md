@@ -12,7 +12,7 @@ The purpose was to learn more about database design, Dotnet Web API, authorizati
 
 
 ## Routes are protected by Auth0 and process entry form
-All Ids and names for the one-to-many tables populated with one API request into multiple fuzzy search ant design Select components. The ProcessEntryFromData model and ProcessEntryFromData controller used to get this data is in /ProcessEntryPlus
+All Ids and names for the one-to-many tables populated with one API request into multiple fuzzy search ant design Select components. The ProcessEntryFormData model and ProcessEntryFormData controller used to get this data is in /ProcessEntryPlus
 ![alt text](img/pdemo1.gif "Page demo")
 
 
